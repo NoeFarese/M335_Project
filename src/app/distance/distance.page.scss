@@ -1,0 +1,23 @@
+#task-finished-text {
+  color: limegreen;
+  margin-left: 20px;
+}
+
+#task-not-finished-text {
+  color: red;
+  margin-left: 20px;
+}
+
+.progress-container {
+  width: 100%;
+  background-color: #f3f3f3;
+  border-radius: 25px;
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 20px;
+  width: 0;
+  background-color: #0a3bff;
+  transition: width 0.5s;
+}

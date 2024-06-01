@@ -1,0 +1,45 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Schnitzeljagd</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Schnitzeljagd</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <div class="ion-padding">
+    <div class="progress-container">
+      <div class="progress-bar" [style.width.%]="progressValue"></div>
+    </div>
+  </div>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Geolocation</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      Begib dich zur Rampe 1 des Business Park Adligenswil <br >
+      <br >
+      <b>Verfügbare Zeit:</b> 5 Minuten
+    </ion-card-content>
+  </ion-card>
+
+  <!--
+  @if(!{{ isTaskDone }}) {
+    <h1 id="task-not-finished-text">Ziel noch nicht erreicht</h1>
+  }
+
+  @if({{ isTaskDone }}) {
+    <h1 id="task-finished-text">Ziel erreicht</h1>
+  }
+  -->
+
+  <div class="ion-text-center">
+    <ion-button color="dark" (click)="navigateToNextTask()">Weiter</ion-button>
+  </div>
+</ion-content>

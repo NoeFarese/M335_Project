@@ -10,4 +10,12 @@ export const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  {
+    path: 'geolocation',
+    loadComponent: () => import('./geolocation/geolocation.page').then( m => m.GeolocationPage)
+  },  {
+    path: 'distance',
+    loadComponent: () => import('./distance/distance.page').then( m => m.DistancePage)
+  }
+
 ];
