@@ -1,46 +1,8 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Schnitzeljagd</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Schnitzeljagd</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div class="ion-padding">
-    <div class="progress-container">
-      <div class="progress-bar" [style.width.%]="progressValue"></div>
-    </div>
-  </div>
-
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Distanz zurücklegen</ion-card-title>
-    </ion-card-header>
-
-    <ion-card-content>
-      Laufe 15 Meter in eine beliebige Richtung
-      <br >
-      <b>Verfügbare Zeit:</b> 30 Sekunden
-    </ion-card-content>
-  </ion-card>
-
-  <!--
-  @if(!{{ isTaskDone }}) {
-    <h1 id="task-not-finished-text">Ziel noch nicht erreicht</h1>
-  }
-
-  @if({{ isTaskDone }}) {
-    <h1 id="task-finished-text">Ziel erreicht</h1>
-  }
-  -->
-
-  <div class="ion-text-center">
-    <ion-button color="dark" (click)="navigateToNextTask()">Weiter</ion-button>
-  </div>
-</ion-content>
-l
+<app-task
+  title="Distanz zurücklegen"
+  description="Laufe 15 Meter in eine beliebige Richtung"
+  availableTime="30 Sekunden"
+  [progressValue]="50"
+  [isTaskDone]="isTaskDone"
+  nextRoute="/qr-code">
+</app-task>
