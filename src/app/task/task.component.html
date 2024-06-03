@@ -29,15 +29,11 @@
     </ion-card-content>
   </ion-card>
 
-  @if(!isTaskDone){
+  @if(!isTaskDone) {
     <h1 id="task-not-finished-text">Ziel noch nicht erreicht</h1>
-  }
-
-  @if(isTaskDone){
+  } @else if (isTaskDone) {
     <h1 id="task-finished-text">Ziel erreicht</h1>
-  }
 
-  @if(isTaskDone){
     <div class="ion-text-center">
       <ion-button color="dark" (click)="navigateToNextTask()">Weiter</ion-button>
     </div>
