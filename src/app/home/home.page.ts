@@ -1,22 +1,14 @@
 import {Component, inject} from '@angular/core';
-import {
-  IonHeader,
-  IonToolbar,
-  IonTitle,
-  IonContent,
-  IonButton,
-  IonList,
-  IonLabel,
-  IonItem, IonCol, IonRow, IonListHeader, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonGrid, AlertController
-} from '@ionic/angular/standalone';
+import {AlertController} from '@ionic/angular/standalone';
 import {Router} from "@angular/router";
+import {IonicModule} from "@ionic/angular";
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButton, IonList, IonLabel, IonItem, IonListHeader, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonRow, IonGrid, IonCol],
+  imports: [IonicModule],
 })
 export class HomePage {
   rows = [

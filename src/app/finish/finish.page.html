@@ -1,0 +1,33 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Schnitzeljagd</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Schnitzeljagd</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Gratuliere!</ion-card-title>
+    </ion-card-header>
+
+    <ion-card-content>
+      Du hast die Schnitzeljagd erfolgreich beendet!
+    </ion-card-content>
+  </ion-card>
+
+  <div class="ion-padding">
+    <h3><b>Dauer:</b> ...</h3>
+    <h3><b>Anzahl gesammelte 🍗:</b> ...</h3>
+    <h3><b>Anzahl gesammelte 🥔</b> ...</h3>
+  </div>
+
+  <div class="ion-text-center">
+    <ion-button color="dark" (click)="navigateToHomePage()">Home</ion-button>
+  </div>
+</ion-content>
