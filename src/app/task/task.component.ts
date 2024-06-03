@@ -26,4 +26,8 @@ export class TaskComponent {
   navigateToNextTask() {
     this.router.navigate([this.nextRoute]);
   }
+
+  stopCurrentSchnitzeljagd() {
+    this.router.navigate(['/home']);
+  }
 }

@@ -31,6 +31,10 @@
 
   @if(!isTaskDone) {
     <h1 id="task-not-finished-text">Ziel noch nicht erreicht</h1>
+
+    <div class="ion-text-center">
+      <ion-button color="dark" (click)="stopCurrentSchnitzeljagd()">Abbrechen</ion-button>
+    </div>
   } @else if (isTaskDone) {
     <h1 id="task-finished-text">Ziel erreicht</h1>
 
