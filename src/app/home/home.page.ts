@@ -24,29 +24,86 @@ export class HomePage {
   private alertController = inject(AlertController)
   private router = inject(Router)
 
-  async startNewSchnitzelJagd() {
+  async enterNameAlert() {
     const alert = await this.alertController.create({
-      header: 'Enter Name',
+      header: 'Gebe deinen Namen ein',
       inputs: [
         {
           name: 'name',
           type: 'text',
-          placeholder: 'Your Name'
+          placeholder: 'Dein Name'
         }
       ],
       buttons: [
         {
           text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
+          role: 'cancel'
         },
         {
           text: 'OK',
           handler: (data) => {
-            console.log('Confirm Ok', data);
-            this.router.navigate(['/'], {queryParams: {name: data.name}});
+            if (data.name !== '') {
+              this.askForCameraAccessAlert();
+            } else {
+              console.error('name required');
+              this.nameRequiredWarningAlert();
+            }
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async nameRequiredWarningAlert(){
+    const alert = await this.alertController.create({
+      header: 'Du musst einen Namen eingeben',
+      buttons: [
+        {
+          text: 'OK',
+          role: 'cancel'
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async askForCameraAccessAlert(){
+    const alert = await this.alertController.create({
+      header: 'Schnitzeljagd möchte auf deine Kamera zugreifen',
+      message: 'Hiermit kannst du Fotots von Schnitzeljagd aus aufnehmen',
+      buttons: [
+        {
+          text: 'nicht erlauben',
+          role: 'cancel'
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            this.askForLocationAccessAlert();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async askForLocationAccessAlert(){
+    const alert = await this.alertController.create({
+      header: '“Schnitzeljagd” möchte auf deinen Standort zugreifen',
+      message: 'Hiermit kannst du Schnitzeljagden absolvieren',
+      buttons: [
+        {
+          text: 'nicht erlauben',
+          role: 'cancel'
+        },
+        {
+          text: 'OK',
+          handler: () => {
+            this.router.navigate(['/geolocation']);
           }
         }
       ]
