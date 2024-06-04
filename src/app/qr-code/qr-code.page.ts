@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {TaskComponent} from "../task/task.component";
 import {IonButton} from "@ionic/angular/standalone";
 import { CapacitorBarcodeScanner } from '@capacitor/barcode-scanner';
+import { HapticService } from "../Services/haptic.service";
 
 @Component({
   selector: 'app-qr-code',
@@ -13,6 +14,7 @@ import { CapacitorBarcodeScanner } from '@capacitor/barcode-scanner';
 export class QRCodePage {
   isTaskDone: boolean = false;
   predefinedSequence = "M335@ICT-BZ";
+  private hapticService = inject(HapticService);
 
   constructor() { }
 
@@ -23,6 +25,7 @@ export class QRCodePage {
 
         if (barcode.ScanResult === this.predefinedSequence) {
           this.isTaskDone = true;
+          await this.hapticService.vibrate();
           console.log('Die Barcode-Daten stimmen mit der vordefinierten Zahlenfolge überein.');
       } else {
           console.log('Die Barcode-Daten stimmen NICHT mit der vordefinierten Zahlenfolge überein.');

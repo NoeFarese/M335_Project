@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {TaskComponent} from "../task/task.component";
 import { Device } from "@capacitor/device";
+import {HapticService} from "../Services/haptic.service";
 
 @Component({
   selector: 'app-device-status',
@@ -12,6 +13,7 @@ import { Device } from "@capacitor/device";
 export class DeviceStatusPage implements OnInit {
   isTaskDone: boolean = false;
   intervalId: any;
+  private hapticServce = inject(HapticService)
 
   constructor() { }
 
@@ -24,6 +26,7 @@ export class DeviceStatusPage implements OnInit {
     if (info.isCharging) {
         this.isTaskDone = true;
         this.stopCheckingChargingStatus();
+        await this.hapticServce.vibrate();
     }
   }
 
