@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TaskComponent} from "../task/task.component";
 import { Device } from "@capacitor/device";
 
