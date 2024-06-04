@@ -1,5 +1,13 @@
 import {Component, inject} from '@angular/core';
-import {AlertController} from '@ionic/angular/standalone';
+import {
+  AlertController,
+  IonButton,
+  IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol,
+  IonContent, IonGrid,
+  IonHeader, IonRow,
+  IonTitle,
+  IonToolbar
+} from '@ionic/angular/standalone';
 import {Router} from "@angular/router";
 import {IonicModule} from "@ionic/angular";
 
@@ -8,7 +16,20 @@ import {IonicModule} from "@ionic/angular";
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
   standalone: true,
-  imports: [IonicModule],
+  imports: [
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButton,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
+    IonGrid,
+    IonRow,
+    IonCol
+  ],
 })
 export class HomePage {
   rows = [

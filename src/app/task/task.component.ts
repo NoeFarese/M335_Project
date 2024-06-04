@@ -1,13 +1,32 @@
 import {Component, inject, Input} from '@angular/core';
 import {IonicModule} from "@ionic/angular";
 import {Router} from "@angular/router";
+import {
+  IonButton,
+  IonCard, IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar
+} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
   styleUrls: ['./task.component.scss'],
   imports: [
-    IonicModule
+    IonContent,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonCard,
+    IonCardTitle,
+    IonCardHeader,
+    IonCardContent,
+    IonButton
+
   ],
   standalone: true
 })

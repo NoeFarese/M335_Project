@@ -1,13 +1,32 @@
 import {Component, inject} from '@angular/core';
-import {IonicModule} from "@ionic/angular";
 import {Router} from "@angular/router";
+import {
+  IonButton,
+  IonCard, IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonContent,
+  IonHeader,
+  IonTitle,
+  IonToolbar
+} from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-finish',
   templateUrl: './finish.page.html',
   styleUrls: ['./finish.page.scss'],
   standalone: true,
-  imports: [IonicModule]
+  imports: [
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
+    IonButton
+  ]
 })
 export class FinishPage {
   private router = inject(Router)
