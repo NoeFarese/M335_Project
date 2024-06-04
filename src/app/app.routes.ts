@@ -29,5 +29,13 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full',
+  },
+  {
+    path: 'sensor',
+    loadComponent: () => import('./sensor/sensor.page').then( m => m.SensorPage)
+  },
+  {
+    path: 'connect-wlan',
+    loadComponent: () => import('./connect-wlan/connect-wlan.page').then( m => m.ConnectWlanPage)
   }
 ];
