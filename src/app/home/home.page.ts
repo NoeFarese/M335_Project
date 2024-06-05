@@ -65,6 +65,7 @@ export class HomePage {
           handler: (data) => {
             if (data.name !== '') {
               this.askForCameraAccessAlert();
+              localStorage.setItem('name', data.name);
             } else {
               console.error('name required');
               this.nameRequiredWarningAlert();
@@ -124,6 +125,9 @@ export class HomePage {
         {
           text: 'OK',
           handler: () => {
+            localStorage.setItem('countSchnitzel', '0');
+            localStorage.setItem('countKartoffel', '0');
+            localStorage.setItem('startTime', Date.now().toString());
             this.router.navigate(['/geolocation']);
           }
         }
