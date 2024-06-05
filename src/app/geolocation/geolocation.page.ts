@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
 import {TaskComponent} from "../task/task.component";
-import {Geolocation, Position} from '@capacitor/geolocation';
+import {Geolocation} from '@capacitor/geolocation';
 import {PointService} from "../Services/point.service";
 import {HapticService} from "../Services/haptic.service";
 import {delay} from "rxjs";
@@ -9,7 +9,6 @@ enum GeolocationEnum {
   latitude = 47.071945403994924,
   longitude = 8.348885173299777
 }
-
 
 @Component({
   selector: 'app-geolocation',
@@ -40,7 +39,7 @@ export class GeolocationPage implements OnInit{
 
       if(this.isTaskDone){
         await this.hapticService.vibrate();
-        this.pointService.checkTimeAndGivePoints(this.startTime!, 300);
+        this.pointService.checkTimeAndGivePoints(this.startTime!, 30);
       }
     } catch (error) {
       console.error('Error getting location', error);
