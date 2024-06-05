@@ -40,7 +40,7 @@ export class GeolocationPage implements OnInit{
 
       if(this.isTaskDone){
         await this.hapticService.vibrate();
-        this.pointService.checkTimeAndGivePoints(this.startTime!, 30);
+        this.pointService.checkTimeAndGivePoints(this.startTime!, 300);
       }
     } catch (error) {
       console.error('Error getting location', error);

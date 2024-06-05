@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {TaskComponent} from "../task/task.component";
 import { Geolocation } from '@capacitor/geolocation';
+import {HapticService} from "../Services/haptic.service";
+import {PointService} from "../Services/point.service";
 
 @Component({
   selector: 'app-distance',
@@ -14,10 +16,15 @@ export class DistancePage implements OnInit {
   initialLon : number = 0;
   initialLat : number = 0;
   threshold : number = 20 // in meters
+  startTime: number | undefined;
+  private hapticService = inject(HapticService);
+  private pointService = inject(PointService);
 
   constructor() { }
 
   async ngOnInit() {
+    this.startTime = Date.now();
+
     const coordinates = await Geolocation.getCurrentPosition({
       enableHighAccuracy: true,
     });
@@ -40,6 +47,8 @@ export class DistancePage implements OnInit {
 
       if (distance > this.threshold) {
         this.isTaskDone = true;
+        await this.hapticService.vibrate();
+        this.pointService.checkTimeAndGivePoints(this.startTime!, 30);
       }
       console.log('Distance: ', distance);
     }, 3000);
