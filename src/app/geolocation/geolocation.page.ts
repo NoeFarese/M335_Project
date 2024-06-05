@@ -10,6 +10,7 @@ enum GeolocationEnum {
   longitude = 8.348885173299777
 }
 
+
 @Component({
   selector: 'app-geolocation',
   templateUrl: './geolocation.page.html',
