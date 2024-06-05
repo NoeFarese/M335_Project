@@ -15,7 +15,7 @@ import {PointService} from "../Services/point.service";
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TaskComponent]
 })
-export class ConnectWlanPage implements OnInit, OnDestroy {
+export class ConnectWlanPage implements OnInit {
   isTaskDone : boolean = false;
   handle : PluginListenerHandle | undefined = undefined;
   startTime: number | undefined;
@@ -30,13 +30,10 @@ export class ConnectWlanPage implements OnInit, OnDestroy {
     this.checkWlanStatus();
   }
 
-  ngOnDestroy(): void {
-    this.handle?.remove();
-  }
-
   async checkWlanStatus(): Promise<void> {
     try {
       this.handle = await Network.addListener('networkStatusChange', async (status) => {
+        console.log('Listening')
         if (status.connected) {
           this.handle?.remove();
           this.isTaskDone = true;
