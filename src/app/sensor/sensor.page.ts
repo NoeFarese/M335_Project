@@ -39,6 +39,7 @@ export class SensorPage implements OnInit, OnDestroy {
          const y = event.gamma;
 
          if ((y > -100 && y < -80) || (y > 80 && y < 100)) {
+           this.handle?.remove();
            this.isTaskDone = true;
            await this.hapticService.vibrate();
            this.timeCheckService.checkTimeAndGivePoints(this.startTime!, 30);

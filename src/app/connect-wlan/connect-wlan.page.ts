@@ -38,6 +38,7 @@ export class ConnectWlanPage implements OnInit, OnDestroy {
     try {
       this.handle = await Network.addListener('networkStatusChange', async (status) => {
         if (status.connected) {
+          this.handle?.remove();
           this.isTaskDone = true;
           await this.hapticService.vibrate();
           this.timeCheckService.checkTimeAndGivePoints(this.startTime!, 120);
