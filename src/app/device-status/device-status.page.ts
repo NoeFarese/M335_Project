@@ -2,6 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {TaskComponent} from "../task/task.component";
 import { Device } from "@capacitor/device";
 import {HapticService} from "../Services/haptic.service";
+import {TimeCheckService} from "../Services/time-check.service";
 
 @Component({
   selector: 'app-device-status',
@@ -13,11 +14,14 @@ import {HapticService} from "../Services/haptic.service";
 export class DeviceStatusPage implements OnInit {
   isTaskDone: boolean = false;
   intervalId: any;
-  private hapticServce = inject(HapticService)
+  startTime: number | undefined;
+  private hapticService = inject(HapticService)
+  private timeCheckService = inject(TimeCheckService);
 
   constructor() { }
 
   ngOnInit() {
+    this.startTime = Date.now();
     this.startCheckingChargingStatus();
   }
 
@@ -26,7 +30,8 @@ export class DeviceStatusPage implements OnInit {
     if (info.isCharging) {
         this.isTaskDone = true;
         this.stopCheckingChargingStatus();
-        await this.hapticServce.vibrate();
+        await this.hapticService.vibrate();
+        this.timeCheckService.checkTime(this.startTime!);
     }
   }
 
