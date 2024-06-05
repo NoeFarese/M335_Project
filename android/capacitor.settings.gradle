@@ -11,6 +11,9 @@ project(':capacitor-barcode-scanner').projectDir = new File('../node_modules/@ca
 include ':capacitor-device'
 project(':capacitor-device').projectDir = new File('../node_modules/@capacitor/device/android')
 
+include ':capacitor-geolocation'
+project(':capacitor-geolocation').projectDir = new File('../node_modules/@capacitor/geolocation/android')
+
 include ':capacitor-haptics'
 project(':capacitor-haptics').projectDir = new File('../node_modules/@capacitor/haptics/android')
 
@@ -22,6 +25,3 @@ project(':capacitor-network').projectDir = new File('../node_modules/@capacitor/
 
 include ':capacitor-status-bar'
 project(':capacitor-status-bar').projectDir = new File('../node_modules/@capacitor/status-bar/android')
-
-include ':capacitor-geolocation'
-project(':capacitor-geolocation').projectDir = new File('../node_modules/@capacitor/geolocation/android')
