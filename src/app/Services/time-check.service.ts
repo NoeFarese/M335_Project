@@ -7,15 +7,13 @@ export class TimeCheckService {
 
   constructor() { }
 
-  checkTime(startTime: number) {
+  checkTime(startTime: number, timeGivenInSec: number) {
     const endTime = Date.now();
     const duration = (endTime - startTime) / 1000;
 
-    if (duration <= 60) {
-      console.log("gewonnen", duration);
+    if (duration <= timeGivenInSec) {
       this.updateLocalStorage('countSchnitzel');
     } else {
-      console.log("verloren", duration);
       this.updateLocalStorage('countKartoffel')
     }
   }

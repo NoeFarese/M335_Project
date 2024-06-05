@@ -40,7 +40,7 @@ export class ConnectWlanPage implements OnInit, OnDestroy {
         if (status.connected) {
           this.isTaskDone = true;
           await this.hapticService.vibrate();
-          this.timeCheckService.checkTime(this.startTime!);
+          this.timeCheckService.checkTime(this.startTime!, 120);
           this.cdr.detectChanges();
         }
       });
