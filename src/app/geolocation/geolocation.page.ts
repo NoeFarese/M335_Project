@@ -3,6 +3,7 @@ import {TaskComponent} from "../task/task.component";
 import {Geolocation, Position} from '@capacitor/geolocation';
 import {PointService} from "../Services/point.service";
 import {HapticService} from "../Services/haptic.service";
+import {delay} from "rxjs";
 
 enum GeolocationEnum {
   latitude = 47.071945403994924,
@@ -18,8 +19,6 @@ enum GeolocationEnum {
 })
 export class GeolocationPage implements OnInit{
   isTaskDone: boolean = false;
-  coordinates : Position | undefined;
-  timeLeft: number = 300; // Time left in seconds
   startTime: number | undefined;
   private hapticService = inject(HapticService)
   private pointService = inject(PointService);
@@ -33,7 +32,7 @@ export class GeolocationPage implements OnInit{
       const lonDiff = Math.abs(coordinates.coords.longitude - GeolocationEnum.longitude);
 
       // Define your acceptable margin of error (in degrees)
-      const marginOfError = 0.001;
+      const marginOfError = 0.0002;
 
       console.log(latDiff < marginOfError, lonDiff < marginOfError)
       this.isTaskDone = latDiff < marginOfError && lonDiff < marginOfError;
@@ -51,9 +50,9 @@ export class GeolocationPage implements OnInit{
     this.startTime = Date.now();
 
     const intervalId = setInterval(async () => {
-      if (this.timeLeft > 0) {
+      if (!this.isTaskDone) {
         await this.checkCurrentPosition();
-        this.timeLeft = this.timeLeft - 2;
+        delay(2000);
       } else {
         clearInterval(intervalId);
       }
