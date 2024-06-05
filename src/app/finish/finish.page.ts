@@ -11,6 +11,7 @@ import {
   IonToolbar
 } from "@ionic/angular/standalone";
 import { CapacitorHttp } from "@capacitor/core";
+import {PointService} from "../Services/point.service";
 
 @Component({
   selector: 'app-finish',
@@ -31,16 +32,19 @@ import { CapacitorHttp } from "@capacitor/core";
 })
 export class FinishPage implements OnInit {
   private router = inject(Router)
+  private pointService = inject(PointService)
   name: string | null = '';
   countSchnitzel: string | null = '';
   countKartoffel: string | null = '';
   duration: number = 0;
+  schnitzelJagd: any;
 
   constructor() { }
 
   ngOnInit() {
-    this.getSchnitzeljagdData();
     this.postSchnitzeljagdData();
+    this.pointService.saveSchnitzeljagd();
+    this.getSchnitzeljagdData();
   }
 
   navigateToHomePage(): void {
@@ -48,10 +52,10 @@ export class FinishPage implements OnInit {
   }
 
   getSchnitzeljagdData(){
-    this.name = localStorage.getItem('name');
-    this.countSchnitzel = localStorage.getItem('countSchnitzel');
-    this.countKartoffel = localStorage.getItem('countKartoffel');
-    this.duration = this.calculateSchnitzeljagdTime();
+    const schnitzeljagden = JSON.parse(localStorage.getItem('schnitzeljagden') || '[]');
+    if (schnitzeljagden.length > 0) {
+      this.schnitzelJagd = schnitzeljagden[schnitzeljagden.length - 1];
+    }
   }
 
   async postSchnitzeljagdData() {
@@ -71,11 +75,5 @@ export class FinishPage implements OnInit {
     const response = await CapacitorHttp.post(options);
     console.log('RESPONSE STATUS POST', response.status)
     console.log(response)
-  }
-
-  calculateSchnitzeljagdTime(){
-    const endTime = Date.now().toString();
-    const startTime = localStorage.getItem('startTime') ?? '0';
-    return (parseInt(endTime) - parseInt(startTime, 10)) / 1000;
   }
 }

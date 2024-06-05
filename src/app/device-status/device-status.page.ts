@@ -22,7 +22,9 @@ export class DeviceStatusPage implements OnInit {
 
   ngOnInit() {
     this.startTime = Date.now();
-    this.startCheckingChargingStatus();
+    if(!this.isTaskDone){
+      this.startCheckingChargingStatus();
+    }
   }
 
   async checkChargingStatus() {

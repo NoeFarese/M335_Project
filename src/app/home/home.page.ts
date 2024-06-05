@@ -1,15 +1,20 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {
   AlertController,
   IonButton,
-  IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol,
-  IonContent, IonGrid,
-  IonHeader, IonRow,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
+  IonCol,
+  IonContent,
+  IonGrid,
+  IonHeader,
+  IonRow,
   IonTitle,
   IonToolbar
 } from '@ionic/angular/standalone';
 import {Router} from "@angular/router";
-import {IonicModule} from "@ionic/angular";
 import {PointService} from "../Services/point.service";
 
 @Component({
@@ -32,20 +37,23 @@ import {PointService} from "../Services/point.service";
     IonCol
   ],
 })
-export class HomePage {
-  rows = [
-    {name: 'Row 1', date: '123', emoji1: '456', emoji2: '456'},
-    {name: 'Row 2', date: '123', emoji1: '456', emoji2: '456'},
-    {name: 'Row 3', date: '123', emoji1: '456', emoji2: '456'},
-    {name: 'Row 4', date: '123', emoji1: '456', emoji2: '456'},
-    {name: 'Row 5', date: '123', emoji1: '456', emoji2: '456'},
-    {name: 'Row 6', date: '123', emoji1: '456', emoji2: '456'},
-    {name: 'Row 7', date: '123', emoji1: '456', emoji2: '456'},
-  ];
+export class HomePage implements OnInit {
+  rows: any[] = [];
 
   private alertController = inject(AlertController)
   private router = inject(Router)
   private pointSerivce = inject(PointService)
+
+  constructor() { }
+
+  ngOnInit() {
+    this.loadSchnitzeljagden();
+  }
+
+  loadSchnitzeljagden() {
+    const schnitzeljagden = JSON.parse(localStorage.getItem('schnitzeljagden') || '[]');
+    this.rows = schnitzeljagden.reverse();
+  }
 
   async enterNameAlert() {
     const alert = await this.alertController.create({
