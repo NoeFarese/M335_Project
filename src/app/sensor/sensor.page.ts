@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
@@ -13,7 +13,7 @@ import { PluginListenerHandle } from '@capacitor/core';
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TaskComponent]
 })
-export class SensorPage { //implements OnInit{
+export class SensorPage implements OnInit, OnDestroy {
   isTaskDone: boolean = false;
   handle : PluginListenerHandle | undefined = undefined;
 

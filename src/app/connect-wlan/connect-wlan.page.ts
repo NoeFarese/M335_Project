@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import {TaskComponent} from "../task/task.component";
 import { Network } from '@capacitor/network';
+import { PluginListenerHandle } from '@capacitor/core';
 
 @Component({
   selector: 'app-connect-wlan',
@@ -14,6 +15,7 @@ import { Network } from '@capacitor/network';
 })
 export class ConnectWlanPage implements OnInit {
   isTaskDone : boolean = false;
+  handle : PluginListenerHandle | undefined = undefined;
   cdr = inject(ChangeDetectorRef)
 
   constructor() { }
@@ -22,9 +24,14 @@ export class ConnectWlanPage implements OnInit {
     this.checkWlanStatus();
   }
 
+  ngOnDestroy(): void {
+    this.handle?.remove();
+    console.log('Listener entfernt');
+  }
+
   async checkWlanStatus(): Promise<void> {
     try {
-      Network.addListener('networkStatusChange', (status) => {
+      this.handle = await Network.addListener('networkStatusChange', (status) => {
         console.log('Network status changed', status.connected);
         if (status.connected == true) {
          this.isTaskDone = true;
