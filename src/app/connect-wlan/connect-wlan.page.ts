@@ -26,14 +26,12 @@ export class ConnectWlanPage implements OnInit {
 
   ngOnDestroy(): void {
     this.handle?.remove();
-    console.log('Listener entfernt');
   }
 
   async checkWlanStatus(): Promise<void> {
     try {
       this.handle = await Network.addListener('networkStatusChange', (status) => {
-        console.log('Network status changed', status.connected);
-        if (status.connected == true) {
+        if (status.connected) {
          this.isTaskDone = true;
          this.cdr.detectChanges();
         }

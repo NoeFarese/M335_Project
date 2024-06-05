@@ -31,7 +31,6 @@ export class SensorPage implements OnInit, OnDestroy {
     try {
        this.handle = await Motion.addListener('orientation', (event) => {
             const y = event.gamma;
-            console.log('Gerätestellung:', y);
 
             if ((y > -100 && y < -80) || (y > 80 && y < 100)) {
                 this.isTaskDone = true;

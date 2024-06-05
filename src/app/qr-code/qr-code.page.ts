@@ -26,10 +26,7 @@ export class QRCodePage {
         if (barcode.ScanResult === this.predefinedSequence) {
           this.isTaskDone = true;
           await this.hapticService.vibrate();
-          console.log('Die Barcode-Daten stimmen mit der vordefinierten Zahlenfolge überein.');
-      } else {
-          console.log('Die Barcode-Daten stimmen NICHT mit der vordefinierten Zahlenfolge überein.');
-      }
+        }
     } catch (error) {
         console.error('Fehler beim Scannen des Barcodes:', error);
     }
