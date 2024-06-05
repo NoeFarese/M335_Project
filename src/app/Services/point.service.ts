@@ -7,6 +7,12 @@ export class PointService {
 
   constructor() { }
 
+  initializeSchnitzeljagd(){
+    localStorage.setItem('countSchnitzel', '0');
+    localStorage.setItem('countKartoffel', '0');
+    localStorage.setItem('startTime', Date.now().toString());
+  }
+
   checkTimeAndGivePoints(startTime: number, timeGivenInSec: number) {
     const endTime = Date.now();
     const duration = (endTime - startTime) / 1000;

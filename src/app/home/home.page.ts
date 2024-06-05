@@ -10,6 +10,7 @@ import {
 } from '@ionic/angular/standalone';
 import {Router} from "@angular/router";
 import {IonicModule} from "@ionic/angular";
+import {PointService} from "../Services/point.service";
 
 @Component({
   selector: 'app-home',
@@ -44,6 +45,7 @@ export class HomePage {
 
   private alertController = inject(AlertController)
   private router = inject(Router)
+  private pointSerivce = inject(PointService)
 
   async enterNameAlert() {
     const alert = await this.alertController.create({
@@ -125,9 +127,7 @@ export class HomePage {
         {
           text: 'OK',
           handler: () => {
-            localStorage.setItem('countSchnitzel', '0');
-            localStorage.setItem('countKartoffel', '0');
-            localStorage.setItem('startTime', Date.now().toString());
+            this.pointSerivce.initializeSchnitzeljagd();
             this.router.navigate(['/geolocation']);
           }
         }
