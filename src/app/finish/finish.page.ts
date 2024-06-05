@@ -10,7 +10,7 @@ import {
   IonTitle,
   IonToolbar
 } from "@ionic/angular/standalone";
-import {HttpClient} from "@angular/common/http";
+import { CapacitorHttp } from "@capacitor/core";
 
 @Component({
   selector: 'app-finish',
@@ -31,7 +31,6 @@ import {HttpClient} from "@angular/common/http";
 })
 export class FinishPage implements OnInit {
   private router = inject(Router)
-  private http = inject(HttpClient)
   name: string | null = '';
   countSchnitzel: string | null = '';
   countKartoffel: string | null = '';
@@ -55,15 +54,23 @@ export class FinishPage implements OnInit {
     this.duration = this.calculateSchnitzeljagdTime();
   }
 
-  postSchnitzeljagdData(){
+  async postSchnitzeljagdData() {
     const url = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSc9v68rbCckYwcIekRLOaVZ0Qdm3eeh1xCEkgpn3d7pParfLQ/formResponse';
     const body = `entry.1860183935=${this.name}` +
       `&entry.564282981=${this.countSchnitzel}` +
       `&entry.1079317865=${this.countKartoffel}` +
       `&entry.985590604=${this.duration}`;
-    const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
+    const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
 
-    this.http.post(url, body, { headers: headers });
+    const options = {
+      url: url,
+      headers: headers,
+      data: body
+    }
+
+    const response = await CapacitorHttp.post(options);
+    console.log('RESPONSE STATUS POST', response.status)
+    console.log(response)
   }
 
   calculateSchnitzeljagdTime(){
