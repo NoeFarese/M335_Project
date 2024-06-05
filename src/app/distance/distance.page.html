@@ -1,6 +1,6 @@
 <app-task
   title="Distanz zurücklegen"
-  description="Laufe 15 Meter in eine beliebige Richtung"
+  [description]="'Laufe 20 Meter in eine beliebige Richtung. Bereits zurückgelegt: ' + currentDistance + 'm'"
   availableTime="30 Sekunden"
   [progressValue]="20"
   [isTaskDone]="isTaskDone"
