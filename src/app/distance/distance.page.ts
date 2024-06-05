@@ -12,7 +12,7 @@ import {PointService} from "../Services/point.service";
   imports: [TaskComponent]
 })
 export class DistancePage implements OnInit {
-  isTaskDone: boolean = true;
+  isTaskDone: boolean = false;
   initialLon : number = 0;
   initialLat : number = 0;
   threshold : number = 20 // in meters
