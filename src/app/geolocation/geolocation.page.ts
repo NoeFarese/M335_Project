@@ -1,6 +1,8 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {TaskComponent} from "../task/task.component";
 import {Geolocation, Position} from '@capacitor/geolocation';
+import {PointService} from "../Services/point.service";
+import {HapticService} from "../Services/haptic.service";
 
 enum GeolocationEnum {
   latitude = 47.071945403994924,
@@ -18,6 +20,9 @@ export class GeolocationPage implements OnInit{
   isTaskDone: boolean = false;
   coordinates : Position | undefined;
   timeLeft: number = 300; // Time left in seconds
+  startTime: number | undefined;
+  private hapticService = inject(HapticService)
+  private pointService = inject(PointService);
 
   async checkCurrentPosition() {
     try {
@@ -32,12 +37,19 @@ export class GeolocationPage implements OnInit{
 
       console.log(latDiff < marginOfError, lonDiff < marginOfError)
       this.isTaskDone = latDiff < marginOfError && lonDiff < marginOfError;
+
+      if(this.isTaskDone){
+        await this.hapticService.vibrate();
+        this.pointService.checkTimeAndGivePoints(this.startTime!, 30);
+      }
     } catch (error) {
       console.error('Error getting location', error);
     }
   }
 
   async ngOnInit() {
+    this.startTime = Date.now();
+
     const intervalId = setInterval(async () => {
       if (this.timeLeft > 0) {
         await this.checkCurrentPosition();
