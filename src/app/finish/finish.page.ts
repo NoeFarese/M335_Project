@@ -10,7 +10,6 @@ import {
   IonTitle,
   IonToolbar
 } from "@ionic/angular/standalone";
-import {TimeCheckService} from "../Services/time-check.service";
 
 @Component({
   selector: 'app-finish',
@@ -31,7 +30,6 @@ import {TimeCheckService} from "../Services/time-check.service";
 })
 export class FinishPage implements OnInit {
   private router = inject(Router)
-  private timeCheckService = inject(TimeCheckService)
   name: string | null = '';
   countSchnitzel: string | null = '';
   countKartoffel: string | null = '';
@@ -40,18 +38,23 @@ export class FinishPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.getStats();
+    this.getSchnitzeljagdStats();
   }
 
   navigateToHomePage(): void {
     this.router.navigate(['/home']);
   }
 
-  getStats(){
+  getSchnitzeljagdStats(){
     this.name = localStorage.getItem('name');
     this.countSchnitzel = localStorage.getItem('countSchnitzel');
     this.countKartoffel = localStorage.getItem('countKartoffel');
-    this.duration = this.timeCheckService.calculateSchnitzelJagdTime();
+    this.duration = this.calculateSchnitzeljagdTime();
   }
 
+  calculateSchnitzeljagdTime(){
+    const endTime = Date.now().toString();
+    const startTime = localStorage.getItem('startTime') ?? '0';
+    return (parseInt(endTime) - parseInt(startTime, 10)) / 1000;
+  }
 }

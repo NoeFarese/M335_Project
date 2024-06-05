@@ -26,10 +26,4 @@ export class TimeCheckService {
     count += 1;
     localStorage.setItem(key, count.toString());
   }
-
-  calculateSchnitzelJagdTime(){
-    const endTime = Date.now().toString();
-    const startTime = localStorage.getItem('startTime') ?? '0';
-    return (parseInt(endTime) - parseInt(startTime, 10)) / 1000;
-  }
 }
