@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {Router} from "@angular/router";
 import {
   IonButton,
@@ -10,6 +10,7 @@ import {
   IonTitle,
   IonToolbar
 } from "@ionic/angular/standalone";
+import {TimeCheckService} from "../Services/time-check.service";
 
 @Component({
   selector: 'app-finish',
@@ -28,13 +29,29 @@ import {
     IonButton
   ]
 })
-export class FinishPage {
+export class FinishPage implements OnInit {
   private router = inject(Router)
+  private timeCheckService = inject(TimeCheckService)
+  name: string | null = '';
+  countSchnitzel: string | null = '';
+  countKartoffel: string | null = '';
+  duration: number = 0;
 
   constructor() { }
 
+  ngOnInit() {
+    this.getStats();
+  }
+
   navigateToHomePage(): void {
     this.router.navigate(['/home']);
+  }
+
+  getStats(){
+    this.name = localStorage.getItem('name');
+    this.countSchnitzel = localStorage.getItem('countSchnitzel');
+    this.countKartoffel = localStorage.getItem('countKartoffel');
+    this.duration = this.timeCheckService.calculateSchnitzelJagdTime();
   }
 
 }
