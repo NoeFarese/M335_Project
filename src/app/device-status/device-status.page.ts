@@ -31,7 +31,7 @@ export class DeviceStatusPage implements OnInit {
         this.isTaskDone = true;
         this.stopCheckingChargingStatus();
         await this.hapticService.vibrate();
-        this.timeCheckService.checkTime(this.startTime!, 60);
+        this.timeCheckService.checkTimeAndGivePoints(this.startTime!, 60);
     }
   }
 

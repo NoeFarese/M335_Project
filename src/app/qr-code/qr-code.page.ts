@@ -34,7 +34,7 @@ export class QRCodePage implements OnInit {
         if (barcode.ScanResult === this.predefinedSequence) {
           this.isTaskDone = true;
           await this.hapticService.vibrate();
-          this.timeCheckService.checkTime(this.startTime!, 60);
+          this.timeCheckService.checkTimeAndGivePoints(this.startTime!, 60);
         }
     } catch (error) {
         console.error('Fehler beim Scannen des Barcodes:', error);

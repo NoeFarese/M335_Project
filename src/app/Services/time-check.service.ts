@@ -7,7 +7,7 @@ export class TimeCheckService {
 
   constructor() { }
 
-  checkTime(startTime: number, timeGivenInSec: number) {
+  checkTimeAndGivePoints(startTime: number, timeGivenInSec: number) {
     const endTime = Date.now();
     const duration = (endTime - startTime) / 1000;
 
