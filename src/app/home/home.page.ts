@@ -97,7 +97,7 @@ export class HomePage {
   async askForCameraAccessAlert(){
     const alert = await this.alertController.create({
       header: 'Schnitzeljagd möchte auf deine Kamera zugreifen',
-      message: 'Hiermit kannst du Fotots von Schnitzeljagd aus aufnehmen',
+      message: 'Hiermit kannst du Fotos von Schnitzeljagd aus aufnehmen',
       buttons: [
         {
           text: 'nicht erlauben',
