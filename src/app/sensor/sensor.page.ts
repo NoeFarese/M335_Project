@@ -14,33 +14,33 @@ import { PluginListenerHandle } from '@capacitor/core';
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TaskComponent]
 })
 export class SensorPage { //implements OnInit{
-  isTaskDone: boolean = true;
+  isTaskDone: boolean = false;
   handle : PluginListenerHandle | undefined = undefined;
 
   constructor() { }
 
-  // ngOnInit(): void {
-  //   this.checkDeviceOriantation();
-  // }
+  ngOnInit(): void {
+    this.checkDeviceOriantation();
+  }
   
-  // ngOnDestroy(): void {
-  //   this.handle?.remove();
-  // }
+  ngOnDestroy(): void {
+    this.handle?.remove();
+  }
 
-  // async checkDeviceOriantation(): Promise<void> {
-  //   try {
-  //      this.handle = await Motion.addListener('orientation', (event) => {
-  //           const y = event.gamma;
-  //           console.log('Gerätestellung:', y);
+  async checkDeviceOriantation(): Promise<void> {
+    try {
+       this.handle = await Motion.addListener('orientation', (event) => {
+            const y = event.gamma;
+            console.log('Gerätestellung:', y);
 
-  //           if ((y > -100 && y < -80) || (y > 80 && y < 100)) {
-  //               this.isTaskDone = true;
-  //           }
-  //       }
-  //     );
-  //   } catch (error) {
-  //       console.error('Fehler beim Überprüfen der Gerätestellung:', error);
-  //   }
-  // }
+            if ((y > -100 && y < -80) || (y > 80 && y < 100)) {
+                this.isTaskDone = true;
+            }
+        }
+      );
+    } catch (error) {
+        console.error('Fehler beim Überprüfen der Gerätestellung:', error);
+    }
+  }
 
 }
