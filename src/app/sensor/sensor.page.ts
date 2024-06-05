@@ -1,8 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
 import {TaskComponent} from "../task/task.component";
+import { Motion } from '@capacitor/motion';
+import { PluginListenerHandle } from '@capacitor/core';
 
 @Component({
   selector: 'app-sensor',
@@ -11,9 +13,34 @@ import {TaskComponent} from "../task/task.component";
   standalone: true,
   imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TaskComponent]
 })
-export class SensorPage {
-  isTaskDone: boolean = false;
+export class SensorPage { //implements OnInit{
+  isTaskDone: boolean = true;
+  handle : PluginListenerHandle | undefined = undefined;
 
   constructor() { }
+
+  // ngOnInit(): void {
+  //   this.checkDeviceOriantation();
+  // }
+  
+  // ngOnDestroy(): void {
+  //   this.handle?.remove();
+  // }
+
+  // async checkDeviceOriantation(): Promise<void> {
+  //   try {
+  //      this.handle = await Motion.addListener('orientation', (event) => {
+  //           const y = event.gamma;
+  //           console.log('Gerätestellung:', y);
+
+  //           if ((y > -100 && y < -80) || (y > 80 && y < 100)) {
+  //               this.isTaskDone = true;
+  //           }
+  //       }
+  //     );
+  //   } catch (error) {
+  //       console.error('Fehler beim Überprüfen der Gerätestellung:', error);
+  //   }
+  // }
 
 }
