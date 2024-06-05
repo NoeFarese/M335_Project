@@ -2,7 +2,7 @@ import {Component, inject, OnInit} from '@angular/core';
 import {TaskComponent} from "../task/task.component";
 import { Device } from "@capacitor/device";
 import {HapticService} from "../Services/haptic.service";
-import {TimeCheckService} from "../Services/time-check.service";
+import {PointService} from "../Services/point.service";
 
 @Component({
   selector: 'app-device-status',
@@ -16,7 +16,7 @@ export class DeviceStatusPage implements OnInit {
   intervalId: any;
   startTime: number | undefined;
   private hapticService = inject(HapticService)
-  private timeCheckService = inject(TimeCheckService);
+  private pointService = inject(PointService);
 
   constructor() { }
 
@@ -31,7 +31,7 @@ export class DeviceStatusPage implements OnInit {
         this.isTaskDone = true;
         this.stopCheckingChargingStatus();
         await this.hapticService.vibrate();
-        this.timeCheckService.checkTimeAndGivePoints(this.startTime!, 60);
+        this.pointService.checkTimeAndGivePoints(this.startTime!, 60);
     }
   }
 

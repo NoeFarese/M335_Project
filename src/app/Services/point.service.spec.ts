@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TimeCheckService } from './time-check.service';
+import { PointService } from './point.service';
 
 describe('TimeCheckService', () => {
-  let service: TimeCheckService;
+  let service: PointService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(TimeCheckService);
+    service = TestBed.inject(PointService);
   });
 
   it('should be created', () => {

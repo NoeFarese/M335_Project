@@ -3,7 +3,7 @@ import {TaskComponent} from "../task/task.component";
 import {IonButton} from "@ionic/angular/standalone";
 import { CapacitorBarcodeScanner } from '@capacitor/barcode-scanner';
 import { HapticService } from "../Services/haptic.service";
-import {TimeCheckService} from "../Services/time-check.service";
+import {PointService} from "../Services/point.service";
 
 @Component({
   selector: 'app-qr-code',
@@ -17,7 +17,7 @@ export class QRCodePage implements OnInit {
   predefinedSequence = "M335@ICT-BZ";
   startTime: number | undefined;
   private hapticService = inject(HapticService);
-  private timeCheckService = inject(TimeCheckService);
+  private pointService = inject(PointService);
 
 
   constructor() { }
@@ -34,7 +34,7 @@ export class QRCodePage implements OnInit {
         if (barcode.ScanResult === this.predefinedSequence) {
           this.isTaskDone = true;
           await this.hapticService.vibrate();
-          this.timeCheckService.checkTimeAndGivePoints(this.startTime!, 60);
+          this.pointService.checkTimeAndGivePoints(this.startTime!, 60);
         }
     } catch (error) {
         console.error('Fehler beim Scannen des Barcodes:', error);

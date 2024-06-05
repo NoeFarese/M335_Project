@@ -6,7 +6,7 @@ import {TaskComponent} from "../task/task.component";
 import { Network } from '@capacitor/network';
 import { PluginListenerHandle } from '@capacitor/core';
 import {HapticService} from "../Services/haptic.service";
-import {TimeCheckService} from "../Services/time-check.service";
+import {PointService} from "../Services/point.service";
 
 @Component({
   selector: 'app-connect-wlan',
@@ -21,7 +21,7 @@ export class ConnectWlanPage implements OnInit, OnDestroy {
   startTime: number | undefined;
   cdr = inject(ChangeDetectorRef)
   private hapticService = inject(HapticService)
-  private timeCheckService = inject(TimeCheckService);
+  private pointService = inject(PointService);
 
   constructor() { }
 
@@ -41,7 +41,7 @@ export class ConnectWlanPage implements OnInit, OnDestroy {
           this.handle?.remove();
           this.isTaskDone = true;
           await this.hapticService.vibrate();
-          this.timeCheckService.checkTimeAndGivePoints(this.startTime!, 120);
+          this.pointService.checkTimeAndGivePoints(this.startTime!, 120);
           this.cdr.detectChanges();
         }
       });

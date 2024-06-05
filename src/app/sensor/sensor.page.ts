@@ -6,7 +6,7 @@ import {TaskComponent} from "../task/task.component";
 import { Motion } from '@capacitor/motion';
 import { PluginListenerHandle } from '@capacitor/core';
 import {HapticService} from "../Services/haptic.service";
-import {TimeCheckService} from "../Services/time-check.service";
+import {PointService} from "../Services/point.service";
 
 @Component({
   selector: 'app-sensor',
@@ -20,7 +20,7 @@ export class SensorPage implements OnInit, OnDestroy {
   handle : PluginListenerHandle | undefined = undefined;
   startTime: number | undefined;
   private hapticService = inject(HapticService)
-  private timeCheckService = inject(TimeCheckService);
+  private pointService = inject(PointService);
 
   constructor() { }
 
@@ -42,7 +42,7 @@ export class SensorPage implements OnInit, OnDestroy {
            this.handle?.remove();
            this.isTaskDone = true;
            await this.hapticService.vibrate();
-           this.timeCheckService.checkTimeAndGivePoints(this.startTime!, 30);
+           this.pointService.checkTimeAndGivePoints(this.startTime!, 30);
          }
        }
       );
