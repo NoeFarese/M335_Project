@@ -6,5 +6,6 @@
   [isTaskDone]="isTaskDone"
   nextRoute="/sensor">
 </app-task>
-
-<ion-button (click)="scanBarcode()">Scan</ion-button>
+@if (!isTaskDone) {
+  <ion-button (click)="scanBarcode()">Scan</ion-button>
+}
