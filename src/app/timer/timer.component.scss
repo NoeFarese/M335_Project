@@ -1,4 +1,9 @@
-.timer {
+.timer, .timer-danger {
   font-size: 2em;
   text-align: center;
+  margin-top: 1.2em;
+}
+
+.timer-danger {
+  color: red;
 }
