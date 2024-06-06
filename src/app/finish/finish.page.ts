@@ -33,10 +33,6 @@ import {PointService} from "../Services/point.service";
 export class FinishPage implements OnInit {
   private router = inject(Router)
   private pointService = inject(PointService)
-  name: string | null = '';
-  countSchnitzel: string | null = '';
-  countKartoffel: string | null = '';
-  duration: number = 0;
   schnitzelJagd: any;
 
   constructor() { }
@@ -60,10 +56,10 @@ export class FinishPage implements OnInit {
 
   async postSchnitzeljagdData() {
     const url = 'https://docs.google.com/forms/u/0/d/e/1FAIpQLSc9v68rbCckYwcIekRLOaVZ0Qdm3eeh1xCEkgpn3d7pParfLQ/formResponse';
-    const body = `entry.1860183935=${this.name}` +
-      `&entry.564282981=${this.countSchnitzel}` +
-      `&entry.1079317865=${this.countKartoffel}` +
-      `&entry.985590604=${this.duration}`;
+    const body = `entry.1860183935=${this.schnitzelJagd.name}` +
+      `&entry.564282981=${this.schnitzelJagd.countSchnitzel}` +
+      `&entry.1079317865=${this.schnitzelJagd.countKartoffel}` +
+      `&entry.985590604=${this.schnitzelJagd.duration}`;
     const headers = {'Content-Type': 'application/x-www-form-urlencoded'};
 
     const options = {
