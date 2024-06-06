@@ -34,12 +34,11 @@ export class GeolocationPage implements OnInit {
         const currentLon = position.coords.longitude;
 
         const distance = this.haversineDistanceToFixedPoint(currentLat, currentLon);
-        console.log('Distance', distance);
 
         if(distance < this.threshold){
           this.isTaskDone = true;
           this.stopWatcher();
-          this.pointService.checkTimeAndGivePoints(this.startTime!, 30);
+          this.pointService.checkTimeAndGivePoints(this.startTime!, 300);
           await this.hapticService.vibrate();
         }
 
