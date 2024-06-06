@@ -26,14 +26,14 @@ export class SensorPage implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.startTime = Date.now();
-    this.checkDeviceOriantation();
+    this.checkDeviceOrientation();
   }
 
   ngOnDestroy(): void {
     this.handle?.remove();
   }
 
-  async checkDeviceOriantation(): Promise<void> {
+  async checkDeviceOrientation(): Promise<void> {
     try {
        this.handle = await Motion.addListener('orientation', async (event) => {
          const y = event.gamma;
