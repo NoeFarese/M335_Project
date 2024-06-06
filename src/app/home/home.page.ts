@@ -50,9 +50,13 @@ export class HomePage implements OnInit {
     this.loadSchnitzeljagden();
   }
 
+  ionViewWillEnter() {
+    this.loadSchnitzeljagden();
+  }
+
   loadSchnitzeljagden() {
     const schnitzeljagden = JSON.parse(localStorage.getItem('schnitzeljagden') || '[]');
-    this.rows = schnitzeljagden.reverse();
+    this.rows = schnitzeljagden.reverse().slice(0, 15);
   }
 
   async enterNameAlert() {
