@@ -1,9 +1,8 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, OnInit } from '@angular/core';
 import { TaskComponent } from "../task/task.component";
 import { Geolocation } from '@capacitor/geolocation';
 import { PointService } from "../Services/point.service";
 import { HapticService } from "../Services/haptic.service";
-import { delay } from "rxjs";
 
 enum GeolocationEnum {
   latitude = 47.071945403994924,
@@ -20,45 +19,65 @@ enum GeolocationEnum {
 export class GeolocationPage implements OnInit {
   isTaskDone: boolean = false;
   startTime: number | undefined;
+  watchId: string | undefined;
+  threshold: number = 3; // in meters
   private hapticService = inject(HapticService);
   private pointService = inject(PointService);
-  private taskCompleted: boolean = false; // New flag to ensure task is completed only once
-
-  async checkCurrentPosition() {
-    try {
-      const coordinates = await Geolocation.getCurrentPosition({ enableHighAccuracy: true });
-      console.log('Current', coordinates.coords.latitude, coordinates.coords.longitude);
-
-      const latDiff = Math.abs(coordinates.coords.latitude - GeolocationEnum.latitude);
-      const lonDiff = Math.abs(coordinates.coords.longitude - GeolocationEnum.longitude);
-
-      // Define your acceptable margin of error (in degrees)
-      const marginOfError = 0.0002;
-
-      console.log(latDiff < marginOfError, lonDiff < marginOfError);
-      this.isTaskDone = latDiff < marginOfError && lonDiff < marginOfError;
-
-      if (this.isTaskDone && !this.taskCompleted) {
-        this.taskCompleted = true; // Set the flag to true to prevent further execution
-        await this.hapticService.vibrate();
-        if (this.startTime) {
-          this.pointService.checkTimeAndGivePoints(this.startTime, 30);
-        }
-      }
-    } catch (error) {
-      console.error('Error getting location', error);
-    }
-  }
+  cdr = inject(ChangeDetectorRef)
 
   async ngOnInit() {
     this.startTime = Date.now();
 
-    const intervalId = setInterval(async () => {
-      if (!this.taskCompleted) { // Check the flag instead of isTaskDone
-        await this.checkCurrentPosition();
-      } else {
-        clearInterval(intervalId);
+    const watcher = Geolocation.watchPosition({enableHighAccuracy: true,}, async (position) => {
+      if (position != null) {
+        const currentLat = position.coords.latitude;
+        const currentLon = position.coords.longitude;
+
+        const distance = this.haversineDistanceToFixedPoint(currentLat, currentLon);
+        console.log('Distance', distance);
+
+        if(distance < this.threshold){
+          this.isTaskDone = true;
+          this.stopWatcher();
+          this.pointService.checkTimeAndGivePoints(this.startTime!, 30);
+          await this.hapticService.vibrate();
+        }
+
+        this.cdr.detectChanges();
       }
-    }, 2000); // checks every two seconds
+    });
+
+    this.watchId = await watcher;
+  }
+
+  haversineDistanceToFixedPoint(currentLat: number, currentLon: number): number {
+    const R = 6371e3; // Earth's radius in meters
+    const lat1Rad = currentLat * (Math.PI / 180);
+    const lat2Rad = GeolocationEnum.latitude * (Math.PI / 180);
+ 
+    const deltaLat = (GeolocationEnum.latitude - currentLat) * (Math.PI / 180);
+    const deltaLon = (GeolocationEnum.longitude - currentLon) * (Math.PI / 180);
+ 
+    const a =
+      Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+      Math.cos(lat1Rad) *
+      Math.cos(lat2Rad) *
+      Math.sin(deltaLon / 2) *
+      Math.sin(deltaLon / 2);
+ 
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    const distance = R * c;
+ 
+    return distance;
+  }
+
+  stopWatcher() {
+    if (this.watchId !== undefined) {
+      Geolocation.clearWatch({ id: this.watchId });
+    } else {
+      console.error('watchId is undefined');
+    }
   }
 }
+  
+
