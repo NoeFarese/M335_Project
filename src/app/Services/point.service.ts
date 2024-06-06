@@ -19,10 +19,8 @@ export class PointService {
 
     if (duration <= timeGivenInSec) {
       this.updateLocalStorage('countSchnitzel');
-      console.log('PLUS schnitzel')
     } else {
       this.updateLocalStorage('countKartoffel')
-      console.log()
     }
   }
 
