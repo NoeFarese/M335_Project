@@ -21,6 +21,7 @@ export class GeolocationPage implements OnInit {
   startTime: number | undefined;
   watchId: string | undefined;
   threshold: number = 3; // in meters
+  currentDistance: string = '0';
   private hapticService = inject(HapticService);
   private pointService = inject(PointService);
   cdr = inject(ChangeDetectorRef)
@@ -34,6 +35,7 @@ export class GeolocationPage implements OnInit {
         const currentLon = position.coords.longitude;
 
         const distance = this.haversineDistanceToFixedPoint(currentLat, currentLon);
+        this.currentDistance = distance.toFixed(2);
 
         if(distance < this.threshold){
           this.isTaskDone = true;

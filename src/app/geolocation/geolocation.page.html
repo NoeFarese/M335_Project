@@ -1,6 +1,6 @@
 <app-task
   title="Geolocation"
-  description="Begib dich zu den Tischen unter dem Dach vor dem ICT-BZ Adligenswil"
+  [description]="'Begib dich zu den Tischen unter dem Dach vor dem ICT-BZ Adligenswil. Abstand zum Punkt: ' + currentDistance + 'm'"
   availableTime="5 Minuten"
   [progressValue]="0"
   [isTaskDone]="isTaskDone"
