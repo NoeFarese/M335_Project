@@ -11,6 +11,7 @@ import {
   IonTitle,
   IonToolbar
 } from "@ionic/angular/standalone";
+import {TimerComponent} from "../timer/timer.component";
 
 @Component({
   selector: 'app-task',
@@ -25,8 +26,8 @@ import {
     IonCardTitle,
     IonCardHeader,
     IonCardContent,
-    IonButton
-
+    IonButton,
+    TimerComponent
   ],
   standalone: true
 })
@@ -38,6 +39,7 @@ export class TaskComponent {
   @Input() progressValue: number | undefined;
   @Input() isTaskDone: boolean | undefined;
   @Input() nextRoute: string | undefined;
+  @Input() timerTime!: number;
   private router = inject(Router);
 
   constructor() { }

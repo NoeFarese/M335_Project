@@ -7,13 +7,14 @@ import { Motion } from '@capacitor/motion';
 import { PluginListenerHandle } from '@capacitor/core';
 import {HapticService} from "../Services/haptic.service";
 import {PointService} from "../Services/point.service";
+import {TimerComponent} from "../timer/timer.component";
 
 @Component({
   selector: 'app-sensor',
   templateUrl: './sensor.page.html',
   styleUrls: ['./sensor.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TaskComponent]
+  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, TaskComponent, TimerComponent]
 })
 export class SensorPage implements OnInit, OnDestroy {
   isTaskDone: boolean = false;

@@ -32,6 +32,8 @@
   @if(!isTaskDone) {
     <h1 id="task-not-finished-text">Ziel noch nicht erreicht</h1>
 
+    <app-timer [totalSeconds]="this.timerTime"></app-timer>
+
     <div class="ion-text-center">
       <ion-button color="dark" (click)="stopCurrentSchnitzeljagd()">Abbrechen</ion-button>
     </div>

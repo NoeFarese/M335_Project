@@ -4,8 +4,8 @@
   availableTime="1 Minute"
   [progressValue]="40"
   [isTaskDone]="isTaskDone"
-  nextRoute="/sensor">
-</app-task>
+  nextRoute="/sensor"
+  [timerTime]="60"/>
 @if (!isTaskDone) {
   <ion-button color="dark" (click)="scanBarcode()">Scan</ion-button>
 }
