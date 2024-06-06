@@ -38,9 +38,9 @@ export class FinishPage implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.postSchnitzeljagdData();
     this.pointService.saveSchnitzeljagd();
     this.getSchnitzeljagdData();
+    this.postSchnitzeljagdData();
   }
 
   navigateToHomePage(): void {
